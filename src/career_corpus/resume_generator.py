@@ -30,6 +30,31 @@ class ExecutiveResume:
             for section in self.sections
         )
 
+    def render(self) -> str:
+        """
+        Render the resume as formatted text.
+        """
+
+        lines: list[str] = []
+
+        lines.append("=" * 60)
+        lines.append("EXECUTIVE RESUME")
+        lines.append("=" * 60)
+        lines.append("")
+
+        for section in self.sections:
+
+            lines.append(section.title.upper())
+            lines.append("-" * len(section.title))
+            lines.append("")
+
+            for accomplishment in section.accomplishments:
+                lines.append(f"• {accomplishment}")
+
+            lines.append("")
+
+        return "\n".join(lines)
+
 
 def generate_resume(
     evidence: list[ClassifiedEvidence],
@@ -40,13 +65,12 @@ def generate_resume(
     Generate a structured executive resume.
 
     Evidence is grouped by category and ranked by the
-    Executive Priority Score calculated by the classifier.
+    Executive Priority Score.
     """
 
     grouped: dict[str, list[ClassifiedEvidence]] = {}
 
     for item in evidence:
-
         grouped.setdefault(
             item.category,
             [],
@@ -61,21 +85,24 @@ def generate_resume(
             key=lambda item: (
                 item.executive_priority_score,
                 item.evidence_score,
+                item.achievement_score,
             ),
             reverse=True,
         )
 
         accomplishments = [
-            item.evidence.text
+            item.evidence.text.strip()
             for item in ranked[:maximum_items_per_section]
+            if item.evidence.text.strip()
         ]
 
-        sections.append(
-            ResumeSection(
-                title=category,
-                accomplishments=accomplishments,
+        if accomplishments:
+            sections.append(
+                ResumeSection(
+                    title=category,
+                    accomplishments=accomplishments,
+                )
             )
-        )
 
     return ExecutiveResume(
         sections=sections,
