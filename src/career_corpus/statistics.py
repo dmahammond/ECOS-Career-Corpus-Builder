@@ -1,7 +1,9 @@
 """Corpus statistics."""
 
+from collections import Counter
 from dataclasses import dataclass
 
+from career_corpus.knowledge import KnowledgeArtifact
 from career_corpus.models import DocumentRecord
 
 
@@ -60,3 +62,36 @@ def calculate_statistics(
         largest_document=largest.name,
         smallest_document=smallest.name,
     )
+
+
+def print_statistics(
+    artifact: KnowledgeArtifact,
+) -> None:
+    """
+    Print executive knowledge statistics.
+
+    This function is retained as a compatibility layer for
+    the application entry point.
+    """
+
+    print(f"Knowledge Evidence: {artifact.evidence_count}")
+    print(
+        f"Average Evidence Score: "
+        f"{artifact.average_evidence_score:.1f}"
+    )
+    print(
+        f"Highest Evidence Score: "
+        f"{artifact.highest_evidence_score}"
+    )
+    print()
+
+    categories = Counter(
+        item.category
+        for item in artifact.evidence
+    )
+
+    print("Evidence Categories")
+    print("-" * 30)
+
+    for category in sorted(categories):
+        print(f"{category:<28}{categories[category]}")
