@@ -18,9 +18,21 @@ class ClassifiedEvidence:
     tags: list[str]
     achievement_score: int
     evidence_score: int
+    executive_priority_score: int
 
 
 DEFAULT_CATEGORY = "General"
+
+
+EXECUTIVE_BONUS = {
+    "Leadership": 25,
+    "Strategy": 20,
+    "Operational Excellence": 18,
+    "Analytics": 15,
+    "Digital": 15,
+    "Healthcare": 12,
+    "General": 0,
+}
 
 
 def _load_rules():
@@ -53,9 +65,6 @@ def _load_rules():
 
     for category, value in config["categories"].items():
 
-        #
-        # New taxonomy format
-        #
         if isinstance(value, dict):
 
             aliases = tuple(
@@ -68,9 +77,6 @@ def _load_rules():
                 for keyword in value.get("keywords", [])
             )
 
-        #
-        # Legacy taxonomy format
-        #
         else:
 
             aliases = ()
@@ -134,7 +140,6 @@ def _achievement_score(text: str) -> int:
     for word in ACHIEVEMENT_WORDS:
 
         if word in lower:
-
             score += 8
 
     return min(score, 100)
@@ -147,6 +152,43 @@ def _evidence_score(
     """Calculate an overall evidence score."""
 
     score = achievement_score + len(tags) * 10
+
+    return min(score, 100)
+
+
+def _executive_priority_score(
+    category: str,
+    evidence_score: int,
+    achievement_score: int,
+    text: str,
+) -> int:
+    """
+    Calculate Executive Priority Score (EPS).
+
+    EPS ranks accomplishments for executive resume generation.
+    """
+
+    score = evidence_score + achievement_score
+
+    score += EXECUTIVE_BONUS.get(category, 0)
+
+    lower = text.lower()
+
+    executive_terms = (
+        "enterprise",
+        "executive",
+        "vice president",
+        "vp",
+        "director",
+        "strategy",
+        "transformation",
+        "portfolio",
+        "governance",
+    )
+
+    for term in executive_terms:
+        if term in lower:
+            score += 5
 
     return min(score, 100)
 
@@ -174,9 +216,16 @@ def classify_evidence(
             item.text
         )
 
-        score = _evidence_score(
+        evidence_score = _evidence_score(
             tags,
             achievement,
+        )
+
+        executive_priority = _executive_priority_score(
+            category,
+            evidence_score,
+            achievement,
+            item.text,
         )
 
         classified.append(
@@ -185,8 +234,18 @@ def classify_evidence(
                 evidence=item,
                 tags=tags,
                 achievement_score=achievement,
-                evidence_score=score,
+                evidence_score=evidence_score,
+                executive_priority_score=executive_priority,
             )
         )
+
+    classified.sort(
+        key=lambda item: (
+            item.executive_priority_score,
+            item.evidence_score,
+            item.achievement_score,
+        ),
+        reverse=True,
+    )
 
     return classified
