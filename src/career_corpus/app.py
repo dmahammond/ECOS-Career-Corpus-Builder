@@ -6,6 +6,7 @@ import sys
 from career_corpus.classifier import classify_evidence
 from career_corpus.config import load_settings
 from career_corpus.corpus import build_corpus
+from career_corpus.curation import curate_evidence
 from career_corpus.database import (
     initialize_database,
     save_corpus,
@@ -14,6 +15,7 @@ from career_corpus.duplicates import find_duplicate_documents
 from career_corpus.evidence import build_evidence
 from career_corpus.knowledge import build_knowledge_artifact
 from career_corpus.reporting import build_executive_report
+from career_corpus.resume_generator import generate_resume
 from career_corpus.search import search_evidence
 from career_corpus.statistics import print_statistics
 from career_corpus.retrieval import get_all_paragraphs
@@ -51,6 +53,13 @@ def main() -> int:
 
     classified = classify_evidence(evidence)
 
+    #
+    # Sprint 11
+    # Remove operational instructions before any
+    # downstream artifact consumes the evidence.
+    #
+    classified = curate_evidence(classified)
+
     artifact = build_knowledge_artifact(
         title="Complete Knowledge Base",
         evidence=classified,
@@ -66,10 +75,23 @@ def main() -> int:
     print_statistics(artifact)
 
     #
+    # Resume mode
+    #
+
+    if len(sys.argv) >= 2 and sys.argv[1].lower() == "resume":
+
+        resume = generate_resume(
+            artifact.evidence,
+        )
+
+        print()
+        print(resume.render())
+
+    #
     # Search mode
     #
 
-    if len(sys.argv) >= 3 and sys.argv[1].lower() == "search":
+    elif len(sys.argv) >= 3 and sys.argv[1].lower() == "search":
 
         query = " ".join(sys.argv[2:])
 
