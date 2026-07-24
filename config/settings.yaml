@@ -1,0 +1,13 @@
+project:
+  name: ECOS Career Corpus Builder
+  version: 0.1.0
+
+paths:
+  knowledge_base: docs/knowledge_base
+  evidence_vault: docs/evidence_vault
+  star_bank: docs/star_bank
+  job_descriptions: docs/job_descriptions
+  output: output
+
+logging:
+  level: INFO

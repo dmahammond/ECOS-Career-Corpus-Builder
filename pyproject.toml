@@ -1,0 +1,11 @@
+[project]
+name = "career-corpus-builder"
+version = "0.1.0"
+description = "ECOS Career Corpus Builder"
+requires-python = ">=3.13"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

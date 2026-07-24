@@ -1,0 +1,55 @@
+# ------------------------------------------------------------
+# ECOS Career Corpus Builder
+# Git Ignore
+# ------------------------------------------------------------
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+logs/
+
+# Output
+output/
+
+# SQLite
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Test cache
+.pytest_cache/
+
+# Ruff
+.ruff_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Backup archives
+*.zip

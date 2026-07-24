@@ -1,0 +1,30 @@
+roles:
+
+  #
+  # Career Evidence
+  #
+
+  "Dave Hammond - Executive Experience Database v3 (Elite).docx":
+    role: evidence
+
+  "Master Achievement Vault.docx":
+    role: evidence
+
+  "STAR Story Bank.docx":
+    role: evidence
+
+  #
+  # Guidance
+  #
+
+  "ECOS Foundation Manual_v1.2.docx":
+    role: guidance
+
+  "Golden Resume Template.docx":
+    role: guidance
+
+  #
+  # Default
+  #
+
+default_role: evidence

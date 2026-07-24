@@ -1,0 +1,142 @@
+categories:
+
+  Leadership:
+
+    aliases:
+      - leadership
+      - executive
+      - management
+      - manager
+      - director
+      - vice president
+      - avp
+      - vp
+      - supervisor
+
+    keywords:
+      - lead
+      - led
+      - leader
+      - executive
+      - manager
+      - managed
+      - mentoring
+      - coaching
+      - organization
+      - team
+
+  Operational Excellence:
+
+    aliases:
+      - process
+      - process improvement
+      - process excellence
+      - operational improvement
+      - continuous improvement
+      - business process
+      - workflow
+      - optimization
+      - operational excellence
+
+    keywords:
+      - operational excellence
+      - continuous improvement
+      - process improvement
+      - process excellence
+      - lean
+      - six sigma
+      - dmaic
+      - kaizen
+
+  Strategy:
+
+    aliases:
+      - strategy
+      - strategic
+      - planning
+      - roadmap
+
+    keywords:
+      - strategy
+      - strategic
+      - roadmap
+      - planning
+      - vision
+
+  Analytics:
+
+    aliases:
+      - analytics
+      - reporting
+      - dashboard
+      - metrics
+
+    keywords:
+      - analytics
+      - dashboard
+      - kpi
+      - metric
+      - tableau
+      - power bi
+
+  Digital:
+
+    aliases:
+      - digital
+      - automation
+      - ai
+      - artificial intelligence
+
+    keywords:
+      - digital
+      - automation
+      - workflow
+      - ai
+      - artificial intelligence
+
+  Insurance:
+
+    aliases:
+      - insurance
+      - annuity
+      - claims
+
+    keywords:
+      - insurance
+      - annuity
+      - underwriting
+      - claims
+      - policy
+
+  Healthcare:
+
+    aliases:
+      - healthcare
+      - health
+      - medical
+
+    keywords:
+      - healthcare
+      - health care
+      - medical
+      - provider
+      - member
+
+achievement_words:
+
+  - implemented
+  - improved
+  - reduced
+  - increased
+  - created
+  - developed
+  - built
+  - launched
+  - designed
+  - transformed
+  - optimized
+  - delivered
+  - saved
+  - established
+  - managed
+  - led
